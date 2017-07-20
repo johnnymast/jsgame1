@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game 1</title>
+    <script type="text/javascript" src="Engine/Engine.js"></script>
+    <script type="text/javascript" src="Objects/RectangeShape.js"></script>
+    <script type="text/javascript" src="Objects/CircleShape.js"></script>
+    <script type="text/javascript" src="Objects/BoxShape.js"></script>
+    <script type="text/javascript" src="Objects/Wall.js"></script>
+</head>
+<body>
+
+<div id="game"></div>
+<script type="text/javascript">
+
+    var size = new Size(
+        window.innerWidth - 25,
+        window.innerHeight - 25,
+    );
+
+    console.log(size.width);
+
+    setupEngine('game', size).then(function (screen) {
+        canvas = Canvas();
+
+        var r = new RectangeShape(10, 10, 10, 10, screen);
+        var wall = new Wall(size);
+
+        canvas.style.background = 'black';
+        var stop = false;
+        setInterval(function () {
+            screen.Clear();
+
+
+            if (wall.Contains(r.x, r.y)) {
+                fill('red');
+                r.x = 10;
+                stop = true;
+            } else {
+                if (stop == false) {
+                    fill('blue');
+                    r.x += 5;
+                }
+            }
+
+
+
+            r.Draw();
+            wall.Draw();
+        }, 33);
+    });
+
+
+</script>
+</body>
+</html>
