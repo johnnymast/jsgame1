@@ -4,10 +4,11 @@ class Food {
         this.y = y;
         this.width = w;
         this.height = h;
+        this.color = 'rgb(32,32,32)';
     }
 
     Draw() {
-        fill('red');
+        fill(this.color);
         rect(this.x, this.y, this.width, this.height);
     }
 

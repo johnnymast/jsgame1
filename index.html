@@ -32,12 +32,10 @@
         var food = new Food(rand(12, screen.width/2), rand(12, screen.height/2), 12, 12);
 
         var img = new Image();
-        img.src = 'http://davetayls.me/space-invaders/ui/sprites.png';
-        var sprite = new SpriteSheet(img.src, 32, 16, [
+        img.src = './art/spritesheet.png';
+        var sprite = new SpriteSheet(img.src, 128, 3, [
             // specify a few sprite locations
-            [10, 523],  // green
-            [131, 523], // pink
-            [191, 523]  // hit
+            [3, 0],  // green
         ]);
 
 
@@ -78,13 +76,7 @@
                 snake.Grow();
             }
 
-//            image('https://s-media-cache-ak0.pinimg.com/236x/c5/50/c9/c550c9197268aa7f7ef309a7fc81cb33--s-style-nd-avenue.jpg',
-//            100, 100, 0,0, 100, 100);
-
-            sprite.Draw(0, 10, 200);
-            sprite.Draw(1, 50, 200);
-            sprite.Draw(2, 90, 200);
-
+            sprite.Draw(0, 100, 100);
 
             snake.Draw();
             wall.Draw();

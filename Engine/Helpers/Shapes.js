@@ -20,9 +20,7 @@ image = (img,x, y, width, height, dx = 0, dy = 0) => {
     ctx.fillStyle = fill();
 
     if (typeof img == 'string') {
-        console.log('fix !! want ' + (typeof img));
         src = img;
-
         img = new Image();
         img.src = src;
     }
