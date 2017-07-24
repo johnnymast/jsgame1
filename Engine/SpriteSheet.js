@@ -10,13 +10,11 @@ class SpriteSheet {
         var pos = this.positions[position];
         image(
             this.img,
-            pos[0],
-            pos[1],
-            this.width,
-            this.height,
             x, y,
             this.width,
-            this.height
+            this.height,
+            pos[0],
+            pos[1]
         );
     }
 }

@@ -15,7 +15,7 @@ rect = (x, y, width, height) => {
     ctx.fillRect(x, y, width, height);
 }
 
-image = (img, x,y, dx, dy, width, height) => {
+image = (img,x, y, width, height, dx = 0, dy = 0) => {
     var ctx = Context();
     ctx.fillStyle = fill();
 
@@ -26,6 +26,8 @@ image = (img, x,y, dx, dy, width, height) => {
         img = new Image();
         img.src = src;
     }
+
+    console.log('dx == '+dx+' dy ' + dy)
 
     ctx.drawImage(
         img,
