@@ -27,13 +27,13 @@
         Canvas().style.background = 'rgb(124,166,92)';
 
         var keyboard = new KeyboardInput();
-        var snake = new Snake(10, 10, 10, 10);
+        var snake = new Snake(size.width/2,size.height/2, 10, 10);
         var wall = new Wall(size);
         var food = new Food(rand(12, screen.width/2), rand(12, screen.height/2), 12, 12);
 
         var img = new Image();
         img.src = 'http://davetayls.me/space-invaders/ui/sprites.png';
-        var sprite = new SpriteSheet(img, 32, 16, [
+        var sprite = new SpriteSheet(img.src, 32, 16, [
             // specify a few sprite locations
             [10, 523],  // green
             [131, 523], // pink
@@ -43,7 +43,6 @@
 
         setInterval(function () {
             screen.Clear();
-
 
             var keyCode = keyboard.getKey();
             var stepsize = 5;
@@ -78,6 +77,9 @@
 
                 snake.Grow();
             }
+
+//            image('https://s-media-cache-ak0.pinimg.com/236x/c5/50/c9/c550c9197268aa7f7ef309a7fc81cb33--s-style-nd-avenue.jpg',
+//            100, 100, 0,0, 100, 100);
 
             sprite.Draw(0, 10, 200);
             sprite.Draw(1, 50, 200);

@@ -6,12 +6,14 @@ class Snake {
         this.h = h;
         this.velx = 0;
         this.vely = 0;
+        this.eatenfoodcolor = 'darkgreen';
+        this.color = 'rgb(32,32,32)';
         this.tail = [{
             x: this.x,
             y: this.y,
             w: this.w,
             h: this.h,
-            color: 'rgb(32,32,32)'
+            color: this.color
         }];
     }
 
@@ -21,7 +23,7 @@ class Snake {
            y: this.y + 5,
            w: this.w + 2,
            h: this.h + 2,
-           color: 'darkgreen',
+           color: this.eatenfoodcolor, // just eaten food color
         });
     }
 
@@ -37,8 +39,6 @@ class Snake {
         this.x = Math.round(this.x);
         this.y = Math.round(this.y);
 
-
-
         // Draw the tale
         if (this.tail.length > 0) {
             var tipOfTail = this.tail.pop();
@@ -50,14 +50,13 @@ class Snake {
         // Draw head
         rect(this.x, this.y, this.w, this.h);
 
-        console.log(this.tail.length);
         // Draw tail
         for(var i = 0; i < this.tail.length; i++) {
             var part = this.tail[i];
             if (i+1 == this.tail.length) {
                 part.w = this.w;
                 part.h = this.h;
-                part.color = 'rgb(32,32,32)';
+                part.color = this.color;
             }
 
             fill(part.color);

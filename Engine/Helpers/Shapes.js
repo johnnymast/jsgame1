@@ -15,5 +15,26 @@ rect = (x, y, width, height) => {
     ctx.fillRect(x, y, width, height);
 }
 
+image = (img, x,y, dx, dy, width, height) => {
+    var ctx = Context();
+    ctx.fillStyle = fill();
 
+    if (typeof img == 'string') {
+        console.log('fix !! want ' + (typeof img));
+        src = img;
 
+        img = new Image();
+        img.src = src;
+    }
+
+    ctx.drawImage(
+        img,
+        dx,
+        dy,
+        width,
+        height,
+        x, y,
+        width,
+        height
+    );
+}

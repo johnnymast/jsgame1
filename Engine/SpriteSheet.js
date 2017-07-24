@@ -8,7 +8,7 @@ class SpriteSheet {
 
     Draw(position, x, y) {
         var pos = this.positions[position];
-        Context().drawImage(
+        image(
             this.img,
             pos[0],
             pos[1],
