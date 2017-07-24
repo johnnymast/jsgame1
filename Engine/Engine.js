@@ -2,6 +2,7 @@ document.writeln('<script type="text/javascript" src="Engine/Store.js"></script>
 document.writeln('<script type="text/javascript" src="Engine/Size.js"></script>');
 document.writeln('<script type="text/javascript" src="Engine/Screen.js"></script>');
 document.writeln('<script type="text/javascript" src="Engine/KeyboardInput.js"></script>');
+document.writeln('<script type="text/javascript" src="Engine/SpriteSheet.js"></script>');
 
 document.writeln('<script type="text/javascript" src="Engine/Helpers/Internals.js"></script>');
 document.writeln('<script type="text/javascript" src="Engine/Helpers/Color.js"></script>');

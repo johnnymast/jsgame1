@@ -6,10 +6,27 @@ class Snake {
         this.h = h;
         this.velx = 0;
         this.vely = 0;
+        this.tail = [{
+            x: this.x,
+            y: this.y,
+            w: this.w,
+            h: this.h,
+            color: 'rgb(32,32,32)'
+        }];
+    }
+
+    Grow() {
+        this.tail.push({
+           x: this.x + 5,
+           y: this.y + 5,
+           w: this.w + 2,
+           h: this.h + 2,
+           color: 'darkgreen',
+        });
     }
 
     Draw() {
-        fill('green');
+
         if (this.velx != 0) {
             this.x += this.velx;
         }
@@ -21,7 +38,32 @@ class Snake {
         this.y = Math.round(this.y);
 
 
+
+        // Draw the tale
+        if (this.tail.length > 0) {
+            var tipOfTail = this.tail.pop();
+            tipOfTail.x = this.x;
+            tipOfTail.y = this.y;
+            this.tail.unshift(tipOfTail);
+        }
+
+        // Draw head
         rect(this.x, this.y, this.w, this.h);
+
+        console.log(this.tail.length);
+        // Draw tail
+        for(var i = 0; i < this.tail.length; i++) {
+            var part = this.tail[i];
+            if (i+1 == this.tail.length) {
+                part.w = this.w;
+                part.h = this.h;
+                part.color = 'rgb(32,32,32)';
+            }
+
+            fill(part.color);
+            rect(part.x, part.y, part.w, part.h);
+        }
+
     }
 
     Contains(x, y) {

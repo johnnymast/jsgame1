@@ -24,14 +24,22 @@
     }
 
     setupEngine('game', size).then(function (screen) {
-        canvas = Canvas();
+        Canvas().style.background = 'rgb(124,166,92)';
 
         var keyboard = new KeyboardInput();
         var snake = new Snake(10, 10, 10, 10);
         var wall = new Wall(size);
         var food = new Food(rand(12, screen.width/2), rand(12, screen.height/2), 12, 12);
 
-        canvas.style.background = 'black';
+        var img = new Image();
+        img.src = 'http://davetayls.me/space-invaders/ui/sprites.png';
+        var sprite = new SpriteSheet(img, 32, 16, [
+            // specify a few sprite locations
+            [10, 523],  // green
+            [131, 523], // pink
+            [191, 523]  // hit
+        ]);
+
 
         setInterval(function () {
             screen.Clear();
@@ -60,7 +68,6 @@
             }
 
             if (wall.Contains(snake.x, snake.y)) {
-                fill('red');
                 snake.x = 12;
             }
 
@@ -68,7 +75,14 @@
             if (food.Contains(snake.x, snake.y)) {
                 food.x = rand(12, screen.width/2);
                 food.y = rand(12, screen.height/2);
+
+                snake.Grow();
             }
+
+            sprite.Draw(0, 10, 200);
+            sprite.Draw(1, 50, 200);
+            sprite.Draw(2, 90, 200);
+
 
             snake.Draw();
             wall.Draw();

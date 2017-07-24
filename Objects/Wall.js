@@ -47,7 +47,7 @@ class Wall {
     }
 
     Draw() {
-        fill('gray');
+        fill('rgb(32,32,32)');
 
         this.boxes.forEach(function (box) {
             box.Draw();
