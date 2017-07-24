@@ -26,16 +26,16 @@ class Wall {
                         y = size.height - (h + padding);
                     }
 
-                    var box = new BoxShape(x, y, w, h);
+                    var box = new Box(x, y, w, h);
                     x += (w + padding);
                     this.boxes.push(box);
 
                 } else {
 
-                    var box1 = new BoxShape(0, y, w, h);
+                    var box1 = new Box(0, y, w, h);
                     this.boxes.push(box1);
 
-                    var box2 = new BoxShape(size.width - (w + padding), y, w, h);
+                    var box2 = new Box(size.width - (w + padding), y, w, h);
                     this.boxes.push(box2);
 
                     skipx = true;

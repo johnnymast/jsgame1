@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>Game 1</title>
     <script type="text/javascript" src="Engine/Engine.js"></script>
-    <script type="text/javascript" src="Objects/RectangeShape.js"></script>
-    <script type="text/javascript" src="Objects/CircleShape.js"></script>
-    <script type="text/javascript" src="Objects/BoxShape.js"></script>
+    <script type="text/javascript" src="Objects/Box.js"></script>
     <script type="text/javascript" src="Objects/Wall.js"></script>
+    <script type="text/javascript" src="Objects/Snake.js"></script>
+    <script type="text/javascript" src="Objects/Food.js"></script>
 </head>
 <body>
 
@@ -19,35 +19,75 @@
         window.innerHeight - 25,
     );
 
-    console.log(size.width);
+    function rand(from, to) {
+        return Math.round(Math.random() * to) + from;
+    }
 
     setupEngine('game', size).then(function (screen) {
         canvas = Canvas();
 
-        var r = new RectangeShape(10, 10, 10, 10, screen);
+        var keyboard = new KeyboardInput();
+        var snake = new Snake(10, 10, 10, 10);
         var wall = new Wall(size);
+        var food = new Food(rand(12, screen.width/2), rand(12, screen.height/2), 12, 12);
 
         canvas.style.background = 'black';
         var stop = false;
+
+
         setInterval(function () {
             screen.Clear();
 
 
-            if (wall.Contains(r.x, r.y)) {
+            var keyCode = keyboard.getKey();
+            var stepsize = 5;
+
+            switch(keyCode) {
+                case keyboard.KEY_UP:
+                    snake.vely = -stepsize;
+                    snake.velx = 0;
+                    break;
+                case keyboard.KEY_DOWN:
+                    snake.vely = +stepsize;
+                    snake.velx = 0;
+                    break;
+                case keyboard.KEY_LEFT:
+                    snake.velx -= stepsize;
+                    snake.vely = 0;
+                    break;
+                case keyboard.KEY_RIGHT:
+                    snake.velx = stepsize;
+                    snake.vely = 0;
+                    break;
+            }
+
+//            console.log('snake x: ' + snake.x + ' snake: y: '+snake.y);
+            //console.log('food x: ' + food.x + ' food: y: '+food.y + ' snake x: '.);
+
+
+
+            if (wall.Contains(snake.x, snake.y)) {
                 fill('red');
-                r.x = 10;
-                stop = true;
+                snake.x = 12;
             } else {
                 if (stop == false) {
                     fill('blue');
-                    r.x += 5;
+                    //r.x += 5;
                 }
             }
 
+            if (food.Contains(snake.x, snake.y)) {
+                food.x = rand(12, screen.width/2);
+                food.y = rand(12, screen.height/2);
 
+                console.log('eaten!!');
+            }
 
-            r.Draw();
+            snake.Draw();
             wall.Draw();
+            food.Draw();
+
+
         }, 33);
     });
 
