@@ -32,8 +32,6 @@
         var food = new Food(rand(12, screen.width/2), rand(12, screen.height/2), 12, 12);
 
         canvas.style.background = 'black';
-        var stop = false;
-
 
         setInterval(function () {
             screen.Clear();
@@ -61,26 +59,15 @@
                     break;
             }
 
-//            console.log('snake x: ' + snake.x + ' snake: y: '+snake.y);
-            //console.log('food x: ' + food.x + ' food: y: '+food.y + ' snake x: '.);
-
-
-
             if (wall.Contains(snake.x, snake.y)) {
                 fill('red');
                 snake.x = 12;
-            } else {
-                if (stop == false) {
-                    fill('blue');
-                    //r.x += 5;
-                }
             }
+
 
             if (food.Contains(snake.x, snake.y)) {
                 food.x = rand(12, screen.width/2);
                 food.y = rand(12, screen.height/2);
-
-                console.log('eaten!!');
             }
 
             snake.Draw();
