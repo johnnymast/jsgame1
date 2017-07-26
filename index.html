@@ -13,79 +13,100 @@
 
 <div id="game"></div>
 <script type="text/javascript">
+    var score = 0;
 
-    var size = new Size(
-        window.innerWidth - 25,
-        window.innerHeight - 25,
-    );
-
-    function rand(from, to) {
+    rand = (from, to) => {
         return Math.round(Math.random() * to) + from;
     }
 
-    setupEngine('game', size).then(function (screen) {
-        Canvas().style.background = 'rgb(124,166,92)';
-
-        var keyboard = new KeyboardInput();
-        var snake = new Snake(size.width/2,size.height/2, 10, 10);
-        var wall = new Wall(size);
-        var food = new Food(rand(12, screen.width/2), rand(12, screen.height/2), 12, 12);
-
-        var img = new Image();
-        img.src = './art/spritesheet.png';
-        var sprite = new SpriteSheet(img.src, 128, 3, [
-            // specify a few sprite locations
-            [3, 0],  // green
-        ]);
+    gameover = () => {
+        alert('Game over your score was ' + score);
+        window.location.reload();
+    }
 
 
-        setInterval(function () {
-            screen.Clear();
+    start = () => {
 
-            var keyCode = keyboard.getKey();
+        var size = new Size(
+            window.innerWidth  - 20,
+            window.innerHeight - 20,
+        );
+
+        setupEngine('game', size).then(function (screen) {
+            Canvas().style.background = 'rgb(124,166,92)';
+
+            var keyboard = new KeyboardInput();
+            var wall = new Wall(size);
+            var food = new Food(rand(12, screen.width / 2), rand(12, screen.height / 2), 12, 12);
+            var snake = new Snake(Math.round(size.width / 2), Math.round(size.height / 2), 10, 10);
             var stepsize = 5;
 
-            switch(keyCode) {
-                case keyboard.KEY_UP:
-                    snake.vely = -stepsize;
-                    snake.velx = 0;
-                    break;
-                case keyboard.KEY_DOWN:
-                    snake.vely = +stepsize;
-                    snake.velx = 0;
-                    break;
-                case keyboard.KEY_LEFT:
-                    snake.velx -= stepsize;
-                    snake.vely = 0;
-                    break;
-                case keyboard.KEY_RIGHT:
-                    snake.velx = stepsize;
-                    snake.vely = 0;
-                    break;
-            }
+            setInterval(function () {
+                screen.Clear();
 
-            if (wall.Contains(snake.x, snake.y)) {
-                snake.x = 12;
-            }
+                var keyCode = keyboard.getKey();
 
+                switch (keyCode) {
+                    case keyboard.KEY_UP:
+                        if (snake.tail.length > 0 && snake.vely == 0) {
+                            snake.vely = -stepsize;
+                            snake.velx = 0;
+                        }
+                        break;
+                    case keyboard.KEY_DOWN:
+                        if (snake.tail.length > 0 && snake.vely == 0) {
+                            snake.vely = +stepsize;
+                            snake.velx = 0;
+                        }
+                        break;
+                    case keyboard.KEY_LEFT:
+                        if (snake.tail.length > 0 && snake.velx == 0) {
+                            snake.velx = -stepsize;
+                            snake.vely = 0;
+                        }
+                        break;
+                    case keyboard.KEY_RIGHT:
+                        if (snake.tail.length > 0 && snake.velx == 0) {
+                            snake.velx = stepsize;
+                            snake.vely = 0;
+                        }
+                        break;
+                }
 
-            if (food.Contains(snake.x, snake.y)) {
-                food.x = rand(12, screen.width/2);
-                food.y = rand(12, screen.height/2);
+                if (wall.Contains(snake.x, snake.y)) {
+                    if (snake.x >= size.width - 20)
+                        snake.x = 5;
+                    else if (snake.x < 12) {
+                        snake.x = size.width - 16 ;
+                    } else if (snake.y >= size.height - 20) {
+                        snake.y = 26;
+                    } else if (snake.y <= 20) {
+                        snake.y = size.height - 16;
+                    }
+                }
 
-                snake.Grow();
-            }
+                if (food.Contains(snake.x, snake.y)) {
+                    food.x = rand(12, screen.width / 2);
+                    food.y = rand(45, screen.height / 2); // 45 to place minimal inside the frame below the score
 
-            sprite.Draw(0, 100, 100);
+                    score += 7;
+                    snake.Grow();
+                }
 
-            snake.Draw();
-            wall.Draw();
-            food.Draw();
+                if (snake.TailCollides() == true) {
+                    return gameover();
+                }
 
+                snake.Draw();
+                wall.Draw();
+                food.Draw();
 
-        }, 33);
-    });
+                text('Score: ' + score, 10, 17, 18);
+            }, 33);
+        });
+    }
 
+    start();
 
 </script>
 </body>

@@ -6,7 +6,7 @@ class Wall {
         var w = 10;
         var h = 10;
         var x = 0;
-        var y = 0;
+        var y = 20;
 
         var cntx = parseInt(size.width / w);
         var cnty = parseInt(size.height / h);

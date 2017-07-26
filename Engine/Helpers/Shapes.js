@@ -25,8 +25,6 @@ image = (img,x, y, width, height, dx = 0, dy = 0) => {
         img.src = src;
     }
 
-    console.log('dx == '+dx+' dy ' + dy)
-
     ctx.drawImage(
         img,
         dx,
@@ -37,4 +35,12 @@ image = (img,x, y, width, height, dx = 0, dy = 0) => {
         width,
         height
     );
+}
+
+text = (str, x, y, fontsize = 30) => {
+    var ctx = Context();
+    ctx.fillStyle = fill();
+
+    ctx.font = fontsize+"px Arial";
+    ctx.fillText(str,x,y);
 }

@@ -4,7 +4,7 @@ class Snake {
         this.y = y;
         this.w = w;
         this.h = h;
-        this.velx = 0;
+        this.velx = 5;
         this.vely = 0;
         this.eatenfoodcolor = 'darkgreen';
         this.color = 'rgb(32,32,32)';
@@ -36,9 +36,6 @@ class Snake {
             this.y += this.vely;
         }
 
-        this.x = Math.round(this.x);
-        this.y = Math.round(this.y);
-
         // Draw the tale
         if (this.tail.length > 0) {
             var tipOfTail = this.tail.pop();
@@ -46,6 +43,8 @@ class Snake {
             tipOfTail.y = this.y;
             this.tail.unshift(tipOfTail);
         }
+        this.x = Math.round(this.x);
+        this.y = Math.round(this.y);
 
         // Draw head
         rect(this.x, this.y, this.w, this.h);
@@ -65,9 +64,14 @@ class Snake {
 
     }
 
-    Contains(x, y) {
-        if (x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height) {
-            return true;
+    TailCollides() {
+        if (this.tail.length > 1) {
+            for (var i = 1; i < this.tail.length; i++) {
+                var part = this.tail[i];
+                if (this.x == part.x && this.y == part.y) {
+                    return true;
+                }
+            }
         }
         return false;
     }
